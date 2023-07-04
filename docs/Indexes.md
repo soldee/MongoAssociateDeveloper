@@ -2,15 +2,6 @@
 
 db.coll.getIndexes()
 
-- Multikey
-    - support efficient queries against array fields by creating an index key for each element in the array. 
-    - This allows MongoDB to search for the index key of each element in the array rather than scan the entire array, which results in dramatic performance gains in your queries.
-    - only allows one field that is an array
-
-- Compound indexes
-    - An index that contains references to multiple fields within a document
-    - The recommended order of indexed fields in a compound index is Equality, Sort, and Range. Optimized queries use the first field in the index, Equality, to determine which documents match the query. The second field in the index, Sort, is used to determine the order of the documents. The third field, Range, is used to determine which documents to include in the result set.
-
 <br>
 
 - Deleting an index that is the only index supporting a query will affect the performance of that query. You should hide the index before deleting it. This way, you'll be able to assess the impact of removing the index on query performance. MongoDB does not use hidden indexes in queries but continues to update their keys. This allows you to assess if removing the index affects the performance and unhide the index if needed. Unhiding an index is faster than recreating it.
@@ -62,6 +53,9 @@ db.col.createIndex({a: 1})
 
 
 ### COMPOUND INDEXES
+- An index that contains references to multiple fields within a document
+- The recommended order of indexed fields in a compound index is Equality, Sort, and Range. Optimized queries use the first field in the index, Equality, to determine which documents match the query. The second field in the index, Sort, is used to determine the order of the documents. The third field, Range, is used to determine which documents to include in the result set.
+
 ```js
 db.col.createIndex({a:1, b:1})
 ```
@@ -79,7 +73,8 @@ db.col.createIndex({a:1, b:1})
 
 
 ### MULTIKEY INDEXES
-- MongoDB automatically creates a multikey index if any indexed field is an array
+- MongoDB automatically creates a multikey index if any indexed field is an array. 
+- Creates an index key for each element in the array. This allows MongoDB to search for the index key of each element in the array rather than scan the entire array, which results in dramatic performance gains in your queries.
 - Careful when creating multikey indexes. We want to make sure that our arrays don't grow too large.
 - If we create a multikey compound index, we have to make sure that we only have one field that is an array.
 	- if we index two array fields in the same compound index, we would be generating a big amount of index keys.
