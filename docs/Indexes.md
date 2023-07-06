@@ -124,7 +124,9 @@ db.<collection>.createIndex(
 ```js
 db.col.createIndex({<field1>:"text", <field2>:"text"})
 ```
-- nomes es pot tenir un text index per col·leccio
+- Text indexes can include any field whose value is a string or an array of string elements. 
+- A collection can only have one text search index, but that index can cover multiple fields.
+
 - per buscar fem (buscara tots els camps indexats amb text index):
 ```js
 db.col.aggregate([ {$match: {$text: {$search: "hola"} } } ])
@@ -148,6 +150,7 @@ db.blog.createIndex(
 {$sort: {score: {$meta:"textScore"} }}
 {$project: {score:{$meta:"textScore"}}}, {$sort:{score:-1}}  
 ```
+- For each indexed field in the document, MongoDB multiplies the number of matches by the weight and sums the results. Using this sum, MongoDB then calculates the score for the document.
 
 
 <br>
