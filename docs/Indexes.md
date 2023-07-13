@@ -54,7 +54,10 @@ db.col.createIndex({a: 1})
 
 ### COMPOUND INDEXES
 - An index that contains references to multiple fields within a document
-- The recommended order of indexed fields in a compound index is Equality, Sort, and Range. Optimized queries use the first field in the index, Equality, to determine which documents match the query. The second field in the index, Sort, is used to determine the order of the documents. The third field, Range, is used to determine which documents to include in the result set.
+- The recommended order of indexed fields in a compound index is Equality, Sort, and Range. 
+  - Optimized queries use the first field in the index, Equality, to determine which documents match the query. 
+  - The second field in the index, Sort, is used to determine the order of the documents. 
+  - The third field, Range, is used to determine which documents to include in the result set.
 
 ```js
 db.col.createIndex({a:1, b:1})
@@ -64,9 +67,9 @@ db.col.createIndex({a:1, b:1})
 	- The index has the following index prefixes: { item: 1 } and { item: 1, location: 1 }
 	- For a compound index, MongoDB can use the index to support queries on the index prefixes.
 	- As such, MongoDB can use the index for queries on the following fields:
-		#item field
-		#item field and the location field
-		#item field and location field and stock field.
+      - item field
+      - item field and the location field
+      - item field and location field and stock field.
 
 
 <br>
