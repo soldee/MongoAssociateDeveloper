@@ -1,8 +1,28 @@
 # Atlas
 
-### Atlas search
+## Atlas search
 - Define relevance-based search. Based on apache Lucene.
- 
+
+![Atlas search architecture](img/atlas_search_architecture.PNG)
+
+- Other supported features
+  - Support 40* languages
+  - Autocomplete
+  - Highlighting
+  - Fuzzy matching
+  - Faceting
+  - Multiple data types
+    - GeoJSON, dates, ...
+  - Synonyms
+  ![Synonyms](img/atlas_search_synonyms.PNG)
+  - Scoring
+  ![Scoring](img/atlas_search_scoring.PNG)
+
+
+<br>
+
+
+### Creating an index 
 ```js
 { 
   "name": "<index-name>", // required
@@ -29,6 +49,8 @@
 	    - Provides a set of language-specific text analyzers.
     - **Keyword**
 	    - Indexes text fields as single terms.
+
+![Atlas search analyzers](img/atlas_search_analyzer.PNG)
 
 <br>
 
@@ -95,3 +117,19 @@
         - **edgeGram** look for matches at the beginning of a word on the name field
         - **nGram** 
         - **regexCaptureGroup**
+
+
+<br><br>
+
+
+## Realm App Services
+
+- Built-in GraphQL
+  - autogenerate JSON schema for collections and query against a single endpoint for the data you need
+- Serverless Realm functions and triggers
+  - define and execute Javascript functions to build APIs and integrate with cloud services, and more
+- Production-grade auth
+  - Manages user authentication and integrates with providers - both internal and external
+- Detailed logging
+- Emmbedded cli
+- SDKs for major platforms
