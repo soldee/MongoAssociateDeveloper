@@ -10,6 +10,3 @@
 8. [Storage engines](docs/StorageEngines.md)
 9. [Java driver](docs/JavaDriver.md)
 10. [Atlas](docs/Atlas.md)
-
-
-[//]: # (TODO: Atlas)

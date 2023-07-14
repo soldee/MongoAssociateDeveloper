@@ -65,6 +65,33 @@
         - Enables or disables dynamic mapping of fields for this index.
         - If true, Atlas Search recursively indexes all dynamically indexable fields.
         - If false (default), you must specify individual fields to index using mappings.fields.
+  - *fields*
+    - Specify fields to index.
+    - We can specify dynamic mapping inside fields and field types to index. Ex:
+    ```js
+    // this will index fields:
+    //  - name of type string
+    //  - pokedex_entry of type document that contains the yellow field of type string
+    {
+      'mappings': {
+        'dynamic': false,
+        'fields': {
+          'name': {
+            'type': 'string'
+          }
+          'pokedex_entry': {
+            'type': 'document',
+            'dynamic': false,
+            'fields': {
+              'yellow': {
+                'type': 'string'
+              }
+            }
+          }
+        }
+      }
+    }
+    ```
 
 <br>
 
@@ -94,7 +121,7 @@
 <br>
 
 -synonyms
-    - Synonym mappings to use in your index. To learn more, see Define Synonym Mappings in Your Atlas Search Index
+    - Synonym mappings to use in your index
 
 ```js
 "synonyms": [
@@ -109,8 +136,80 @@
 ```
 
 
+<br><br>
+
+### Atlas Search queries
+
+```js
+{
+  $search: {
+    "index": "<index-name>",
+    "<operator-name>": {
+       <operator-specifications>
+    },
+    // other options...
+  }
+}
+```
+
+#### **Operators**
+
+- **autocomplete**
+  - Performs a search-as-you-type query from an incomplete input string
+- **compound**
+  - Combines other operators into a single query.
+- **embeddedDocument**
+  - Queries fields in embedded documents, which are documents that are elements of an array.
+- **equals**
+  - Works in conjunction with the boolean and objectId data types.
+- **exists**
+  - Tests for the presence of a specified field.
+- **geoShape**
+  - Queries for values with specified geo shapes.
+- **geoWithin**
+  - Queries for points within specified geographic shapes.
+- **in**
+  - Queries both single value and array of values.
+- **knnBeta**
+  - Performs semantic search using Hierarchical Navigable Small Worlds algorithm.
+- **moreLikeThis**
+  - Queries for similar documents.
+- **near**
+  - Queries for values near a specified number, date, or geo point.
+- **phrase**
+  - Searches documents for terms in an order similar to the query.
+- **queryString**
+  - Supports querying a combination of indexed fields and values.
+- **range**
+  - Queries for values within a specific numeric or date range.
+- **regex**
+  - Interprets the query field as a regular expression.
+- **span**
+  - Specifies relative positional requirements for query predicates within specified regions of a text field.
+- **text**
+  - Performs textual analyzed search.
+- **wildcard**
+  - Supports special characters in the query string that can match any character.
+
+#### **Collectors**
+Collectors return a document representing the metadata results, typically an aggregation over the matching search results.
+- **facet**
+  - Groups query results by values or ranges in specified, faceted fields and returns the count for each of those groups.
+
+
 <br>
 
+```js
+{
+  $searchMeta: {
+    "index": "<index-name>",
+    "<operator-name>"|"<collector-name>": {
+       <operator-specifications>|<collector-specifications>
+    }
+    // other options ...
+  }
+}
+```
 
 - Autocomplete index
     - tokenization types:
